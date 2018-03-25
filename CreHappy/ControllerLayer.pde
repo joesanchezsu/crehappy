@@ -35,8 +35,8 @@ public class ControllerLayer{
         }
         
         display.updatePaint(this);
-        
-      }
+      } 
+      
       
       
       
