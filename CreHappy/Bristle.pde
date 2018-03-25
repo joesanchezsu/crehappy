@@ -9,7 +9,7 @@ public class Bristle {
     palette = palette_;
     Segment current = new Segment(0, 0, 10, 0);
     for (int i = 0; i < len; i++) {
-      Segment next = new Segment(current, 20, i);
+      Segment next = new Segment(current, 10, i);
       current.child = next;
       current = next;
     }

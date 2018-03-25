@@ -23,7 +23,7 @@ public class ControllerLayer{
       index = hand.getIndexFinger();
       
       if(index.isValid()){
-        background(0xffffff);
+        background(10);
         PVector tip = index.getPositionOfJointTip();
         indexX = tip.x;
         indexY = tip.y;

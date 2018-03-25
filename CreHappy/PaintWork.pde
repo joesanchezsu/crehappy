@@ -15,7 +15,7 @@ public class PaintWork {
   void showPalette(){
     if(mouseY-pmouseY > 0){
         palette.showHue(mouseY);
-        delay(500);
+        delay(600);
     }
   }
   

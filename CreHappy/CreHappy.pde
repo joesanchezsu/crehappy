@@ -22,8 +22,8 @@ void setup()
    controller = new ControllerLayer(leap);
    
    brush = loadImage("white.png");
-   background(canvasColor);
-   stroke(0x00ffffff);   
+   background(0);
+   stroke(0x00ffffff);  
 }
 
 
