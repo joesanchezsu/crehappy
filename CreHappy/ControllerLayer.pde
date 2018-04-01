@@ -4,20 +4,38 @@ public class ControllerLayer{
   
   LeapMotion leap;
   DisplayLayer display;
+  PImage bg;
   
   // Fingers
   Finger index;
   float indexX = 0;
   float indexY = 0;
-  Boolean indexActive = false;
+  Boolean indexActive = true;
   
+  public ControllerLayer(){
+    display = new DisplayLayer();
+    bg = loadImage("palette.jpg");
+    bg.resize(width, height);
+  }
   
   public ControllerLayer(LeapMotion leap_){ 
     leap = leap_;
     display = new DisplayLayer();
   }
   
+  // Tests with the mouse position
   public void updateControls(){
+    background(bg);
+    indexX = mouseX;
+    indexY = mouseY;
+    if(mousePressed) indexActive = false;
+    else indexActive = true;
+    
+    display.updatePaint(this);
+    
+  }
+  
+  public void updateControls_(){
     for(Hand hand : leap.getHands ()){
 
       index = hand.getIndexFinger();
@@ -36,11 +54,7 @@ public class ControllerLayer{
         
         display.updatePaint(this);
       } 
-      
-      
-      
-      
-      
+
       
       /*
       // Hand

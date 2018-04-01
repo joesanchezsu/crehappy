@@ -10,7 +10,7 @@ class Segment {
   
   Segment(float x, float y, float len_, float i){
     a = new PVector(x,y);
-    sw = map(i, 0, 20, 1, 2);
+    sw = map(i, 0, 20, 0.5, 3);
     len = len_; 
     calculateB();
   }
@@ -18,7 +18,7 @@ class Segment {
   Segment(Segment parent_, float len_, float i){
     parent = parent_;
     a = parent.b.copy();
-    sw = map(i, 0, 10, 1, 2);
+    sw = map(i, 0, 15, 0.5, 3);
     len = len_;
     calculateB();
   }
@@ -55,6 +55,7 @@ class Segment {
     stroke(c);
     strokeWeight(sw);
     line(a.x, a.y, b.x, b.y);
+    strokeWeight(1);
   }
   
   PGraphics paint(PGraphics canvas, color col){

@@ -8,7 +8,7 @@ float alphaVal = 10;
 float prevPointerX = 0;
 float prevPointerY = 0;
 
-LeapMotion leap;
+//LeapMotion leap;
 ControllerLayer controller;
 
 PImage brush;
@@ -16,14 +16,16 @@ PImage brush;
 
 void setup()
 {
-   //frameRate();
-   size(1000, 700, P2D);
-   leap = new LeapMotion(this);
-   controller = new ControllerLayer(leap);
+   //frameRate(100);
+   //size(1000, 700, P2D);
+   fullScreen(P2D);
+   //leap = new LeapMotion(this);
+   controller = new ControllerLayer();
+   //controller = new ControllerLayer(leap);
    
    brush = loadImage("white.png");
-   background(0);
-   stroke(0x00ffffff);  
+   background(255);
+   //stroke(0x00ffffff);  
 }
 
 
@@ -32,6 +34,8 @@ void draw(){
   //display.updatePaint(controller);  
 }
 
+
+// Stains - manchas
 void brushPaint(PGraphics canvas, float x, float y, color col){
   canvas.beginDraw();
   float brushAngle = atan2(x - prevPointerX, y - prevPointerY);

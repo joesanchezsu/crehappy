@@ -3,40 +3,85 @@ import de.voidplus.leapmotion.*;
 public class PaintWork {
 
   Palette palette;
-  Bristle bristle;
+  Brush brush;
+  Brush littleBrush;
+  RealisticBrush realBrush;
   PGraphics canvas;
+  int id = 0;
+  int mismatch = 50;
 
   PaintWork() {
     palette = new Palette();
-    canvas = createGraphics(900, 700);
-    bristle = new Bristle(10, palette);
+    canvas = createGraphics(width - palette.thickness, height - mismatch);
+    brush = new Brush(15, palette);
+    littleBrush = new Brush(palette);
+    realBrush = new RealisticBrush(10+random(40), 5 + random(50), mismatch, palette.getHue());
   }
   
   void showPalette(){
-    if(mouseY-pmouseY > 0){
-        palette.showHue(mouseY);
-        delay(600);
+     palette.drawPointer(mouseY);
+  }
+  
+  void showIndex(Boolean indexActive){
+    if(!indexActive){
+      brush.isDrawing = false;
+      stroke(0, 40);
+    } else {
+      brush.isDrawing = true;
+      stroke(0, 170);
+      //ellipse(x,y,15,15); // draw cursor
     }
   }
   
   void showIndex(Finger index, Boolean indexActive){
     if(!indexActive){
-      bristle.isDrawing = false;
+      brush.isDrawing = false;
       stroke(0, 40);
     } else {
-      bristle.isDrawing = true;
+      brush.isDrawing = true;
       stroke(0, 170);
       //ellipse(x,y,15,15); // draw cursor
     }
     
-    index.getBone(0).draw();
-    index.getBone(1).draw();
-    index.getBone(2).draw();
+    //index.getBone(0).draw();
+    //index.getBone(1).draw();
+    //index.getBone(2).draw();
   }
   
   void showTool(float x, float y){
-    bristle.show(canvas, x, y);
+    if(keyPressed){
+      if(key == BACKSPACE){
+        canvas.beginDraw();
+        canvas.background(255);
+        canvas.endDraw();
+      }
+      
+      if(key == ENTER){
+        //String path = sketchPath("/Paintworks");
+        //String[] filenames = listFileNames(path);
+        //printArray(filenames);
+        
+        canvas.save("Paintworks/screenshot"+id+".jpg");
+        id++;
+      }
+    }
+    //brush.show(canvas, x, y);
+    //littleBrush.showLittleBrush(canvas, x, y);
+    realBrush.show(canvas, x, y, palette.getHue());
   }
+  
+  // This function returns all the files in a directory as an array of Strings  
+  String[] listFileNames(String dir) {
+    File file = new File(dir);
+    if (file.isDirectory()) {
+      String names[] = file.list();
+      return names;
+    } else {
+      // If it's not a directory
+      return null;
+    }
+  }
+
   
   
 }

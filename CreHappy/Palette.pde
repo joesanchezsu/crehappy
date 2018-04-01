@@ -1,29 +1,31 @@
-float position;
-private int thickness;
 
 class Palette{
+  float position;
+  private int thickness;
+  int cont = 0;
+
   Palette(){
     position = 0;
     thickness = width/30;
   }
   
-  void showHue(float pos){
-    position = pos;
+  void showHue(){
     colorMode(HSB, height, width, 100);
-    for(int i = width-thickness; i < width; i++){
+    for(int i = width - thickness; i < width; i++){
       for(int j = 0; j < height; j++){
-        stroke(j,i,100);
-        point(i,j);
+        stroke(j, i, 100);
+        point(i, j);
       }
     }
-    drawPointer();
   }
   
-  void drawPointer(){
-    stroke(0);
+  void drawPointer(float pos){
+    position = pos;
+    stroke(255);
+    strokeWeight(2);
     line(width-thickness, position, width, position);
-    noStroke();
-    fill(0);
+    //noStroke();
+    fill(255);
     beginShape(TRIANGLES);
     vertex(width-thickness-10, position-3);
     vertex(width-thickness-10, position+3);
