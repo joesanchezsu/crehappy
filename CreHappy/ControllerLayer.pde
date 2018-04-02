@@ -21,10 +21,12 @@ public class ControllerLayer{
   public ControllerLayer(LeapMotion leap_){ 
     leap = leap_;
     display = new DisplayLayer();
+    bg = loadImage("palette.jpg");
+    bg.resize(width, height);
   }
   
   // Tests with the mouse position
-  public void updateControls(){
+  public void updateControls_(){
     background(bg);
     indexX = mouseX;
     indexY = mouseY;
@@ -35,13 +37,13 @@ public class ControllerLayer{
     
   }
   
-  public void updateControls_(){
+  public void updateControls(){
     for(Hand hand : leap.getHands ()){
 
       index = hand.getIndexFinger();
       
       if(index.isValid()){
-        background(10);
+        background(bg);
         PVector tip = index.getPositionOfJointTip();
         indexX = tip.x;
         indexY = tip.y;

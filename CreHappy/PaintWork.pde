@@ -35,10 +35,10 @@ public class PaintWork {
   
   void showIndex(Finger index, Boolean indexActive){
     if(!indexActive){
-      brush.isDrawing = false;
+      realBrush.isDrawing = false;
       stroke(0, 40);
     } else {
-      brush.isDrawing = true;
+      realBrush.isDrawing = true;
       stroke(0, 170);
       //ellipse(x,y,15,15); // draw cursor
     }
