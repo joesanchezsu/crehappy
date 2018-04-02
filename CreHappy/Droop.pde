@@ -15,14 +15,17 @@ class Droop
       b = blue(dcol);
   }
   
-  public void draw()
+  public PGraphics draw(PGraphics canvas)
   {
     if(mass <= 0) isDead = true;
-    ellipseMode(CENTER);
-    noStroke();
-    fill(r, g, b, 128);
-    ellipse(xp, yp, mass, mass);
+    //canvas.beginDraw();
+    canvas.ellipseMode(CENTER);
+    canvas.noStroke();
+    canvas.fill(r, g, b, 128);
+    canvas.ellipse(xp, yp, mass, mass);
+    //canvas.endDraw();
     mass *= 0.8;
     yp += mass/3;
+    return canvas;
   }
 }

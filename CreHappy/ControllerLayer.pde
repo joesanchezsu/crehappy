@@ -10,6 +10,7 @@ public class ControllerLayer{
   Finger index;
   float indexX = 0;
   float indexY = 0;
+  float indexZ = 0;
   Boolean indexActive = true;
   
   public ControllerLayer(){
@@ -47,6 +48,8 @@ public class ControllerLayer{
         PVector tip = index.getPositionOfJointTip();
         indexX = tip.x;
         indexY = tip.y;
+        indexZ = tip.z;
+        //println("x:"+indexX + "  y:"+indexY + "  z:"+indexZ);
         
         if(!index.isExtended()){
           indexActive = false;

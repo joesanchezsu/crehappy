@@ -11,6 +11,7 @@ class RealisticBrush
   float px;
   float py;
   PGraphics lastCanvas;
+  Boolean prevIsDrawing = false;
 
   float angleChange;
 
@@ -21,10 +22,10 @@ class RealisticBrush
     this.mismatch = mismatch;
     droops = new ArrayList<Droop>();
     hairs = new ArrayList<BrushHair>();
-    reset(col);
+    reset(0, col);
   }
 
-  void reset(color col)
+  void reset(float intensity, color col)
   {
     //angleChange = 0; //atan2((pmouseY - y), (pmouseX - x)); //(0-1+random(2))/(TWO_PI*10);
     //atan2((pmouseY - y), (pmouseX - x)); //
@@ -37,49 +38,60 @@ class RealisticBrush
     //vel = 1 + random(10);
     //(pmouseX - mouseX ) + (pmouseY - mouseY);//
 
-    w = 20; //10 + random(20);
-    h = 20; //5 + random(20);
+    w = 10*intensity; //10 + random(20);
+    h = 10*intensity; //5 + random(20);
 
     this.angle = lastAngle; // 90 + atan2((pmouseY - y), (pmouseX - x)); //random(TWO_PI/4);
-    
-    
+
+    hairs.clear();
     for (int i=0; i < w; i++)
     {
       for (int j =0; j < h; j++)
       {
-        hairs.add(new BrushHair(i, j, col));
+        hairs.add(new BrushHair(i, j, intensity, col));
       }
     }
-  }
+  }  
 
-  void show(PGraphics canvas, float x, float y, color col)
+  void show(PGraphics canvas, float x, float y, float z, Palette palette)
   {
+    float intensity = map(z, 0, 100, 0, 5);
+    println(intensity);
     float cumulativeSaturation = 10;
     if (py - y != 0 || py - x != 0) {
       this.angle = 20 + atan2((py - y), (px - x)); //random(TWO_PI/4);
     }
+
     canvas.beginDraw();
     //todo : contaminate brush strokes running through one another
     canvas.pushMatrix();
     canvas.translate(x, y - mismatch);
     canvas.rotate(angle);
 
-    for (BrushHair h : hairs)
-    {
-      cumulativeSaturation += h.show(canvas);
+    if (isDrawing) {
+      hairs.clear();
+      for (int i=0; i < w; i++)
+      {
+        for (int j =0; j < h; j++)
+        {
+          hairs.add(new BrushHair(i, j, intensity, palette.getHue()));
+        }
+      }
+      for (BrushHair h : hairs)
+      {
+        cumulativeSaturation += h.show(canvas);
+      }
     }
 
     canvas.popMatrix();
     canvas.endDraw();
-    if (isDrawing) {
-      image(canvas, 0, mismatch);
-    } else{
-      //image(lastCanvas, 0, mismatch);
+
+    if (prevIsDrawing != isDrawing) {
+      reset(intensity, palette.getHue());
     }
-    
     if (cumulativeSaturation <= 0)
     {
-      reset(col);
+      reset(intensity, palette.getHue());
     }
 
     //angle += angleChange;
@@ -89,20 +101,25 @@ class RealisticBrush
     px = x;
     py = y;
     lastCanvas = canvas;
+    prevIsDrawing = isDrawing;
 
+    /*
     //draw a droop?
-    if (random(100) > 90)
-    {
-      droops.add(new Droop(this.x + cos(angle)*random(this.w), this.y + sin(angle)*random(this.h)));
-    }
-    for (int i=droops.size(); i > 0; i--)
-    {
-      Droop drp = droops.get(i-1);
-      drp.draw();
-      if (drp.isDead)
-      {
-        droops.remove(drp);
-      }
-    }
+     if (random(100) > 90)
+     {
+     droops.add(new Droop(x + cos(angle)*random(this.w), y - mismatch + sin(angle)*random(this.h)));
+     }
+     for (int i=droops.size(); i > 0; i--)
+     {
+     Droop drp = droops.get(i-1);
+     canvas = drp.draw(canvas);
+     if (drp.isDead)
+     {
+     droops.remove(drp);
+     }
+     }
+     */
+
+    image(canvas, 0, mismatch);
   }
 }

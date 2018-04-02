@@ -43,17 +43,19 @@ public class PaintWork {
       //ellipse(x,y,15,15); // draw cursor
     }
     
-    //index.getBone(0).draw();
-    //index.getBone(1).draw();
-    //index.getBone(2).draw();
+    index.getBone(0).draw();
+    index.getBone(1).draw();
+    index.getBone(2).draw();
   }
   
-  void showTool(float x, float y){
+  void showTool(float x, float y, float z){
     if(keyPressed){
       if(key == BACKSPACE){
         canvas.beginDraw();
         canvas.background(255);
         canvas.endDraw();
+        image(canvas, 0, mismatch);
+        delay(500);
       }
       
       if(key == ENTER){
@@ -67,7 +69,7 @@ public class PaintWork {
     }
     //brush.show(canvas, x, y);
     //littleBrush.showLittleBrush(canvas, x, y);
-    realBrush.show(canvas, x, y, palette.getHue());
+    realBrush.show(canvas, x, y, z, palette);
   }
   
   // This function returns all the files in a directory as an array of Strings  

@@ -17,8 +17,8 @@ PImage brush;
 void setup()
 {
    //frameRate(100);
-   //size(1000, 700, P2D);
-   fullScreen(P2D);
+   size(1000, 700, P2D);
+   //fullScreen(P2D);
    leap = new LeapMotion(this);
    //controller = new ControllerLayer();
    controller = new ControllerLayer(leap);
