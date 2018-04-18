@@ -9,7 +9,7 @@ public class DisplayLayer{
   }
   
   void updatePaint(ControllerLayer c){
-    pw.showPalette();
+    pw.showPalette(c.sensorDistance);
     //pw.showIndex(c.indexActive);
     
     pw.showTool(c.indexX, c.indexY, c.indexZ);

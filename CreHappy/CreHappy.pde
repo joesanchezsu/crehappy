@@ -1,5 +1,7 @@
 //import com.leapmotion.leap.*;
 import de.voidplus.leapmotion.*;
+import apsync.*;
+import processing.serial.*;
 
 int maxBrushSize = 120;
 color canvasColor = color(255);
@@ -10,6 +12,8 @@ float prevPointerY = 0;
 
 LeapMotion leap;
 ControllerLayer controller;
+AP_Sync streamer;
+public int inDataInt;
 
 PImage brush;
 
@@ -21,6 +25,7 @@ void setup()
    //fullScreen(P2D);
    leap = new LeapMotion(this);
    //controller = new ControllerLayer();
+   streamer = new AP_Sync(this, Serial.list()[1], 9600);
    controller = new ControllerLayer(leap);
    
    brush = loadImage("white.png");
@@ -30,7 +35,7 @@ void setup()
 
 
 void draw(){
-  controller.updateControls();
+  controller.updateControls(inDataInt);
   //display.updatePaint(controller);  
 }
 

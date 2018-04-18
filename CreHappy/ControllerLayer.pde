@@ -12,6 +12,7 @@ public class ControllerLayer{
   float indexY = 0;
   float indexZ = 0;
   Boolean indexActive = true;
+  int sensorDistance;
   
   public ControllerLayer(){
     display = new DisplayLayer();
@@ -38,7 +39,8 @@ public class ControllerLayer{
     
   }
   
-  public void updateControls(){
+  public void updateControls(int inDataInt){
+    sensorDistance = inDataInt;
     for(Hand hand : leap.getHands ()){
 
       index = hand.getIndexFinger();

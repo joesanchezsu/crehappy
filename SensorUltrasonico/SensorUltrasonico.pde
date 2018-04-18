@@ -8,7 +8,7 @@ float amp;
 float lastValue = 0;
 
 void setup(){
-  //println(Serial.list());
+  println(Serial.list());
   //port = new Serial(this, Serial.list()[1], 9600); // starts the serial communication
   //port.bufferUntil('\n');
   streamer = new AP_Sync(this, Serial.list()[1], 9600);

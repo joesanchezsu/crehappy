@@ -9,6 +9,10 @@ public class PaintWork {
   PGraphics canvas;
   int id = 0;
   int mismatch = 50;
+  float colorPalette;
+  float lastValueDistSensor = 0;
+  float sensorDist;
+  float posPalette;
 
   PaintWork() {
     palette = new Palette();
@@ -17,24 +21,21 @@ public class PaintWork {
     littleBrush = new Brush(palette);
     realBrush = new RealisticBrush(10+random(40), 5 + random(50), mismatch, palette.getHue());
   }
-  
-  void showPalette(){
-     palette.drawPointer(mouseY);
-  }
-  
-  void showIndex(Boolean indexActive){
-    if(!indexActive){
-      brush.isDrawing = false;
-      stroke(0, 40);
-    } else {
-      brush.isDrawing = true;
-      stroke(0, 170);
-      //ellipse(x,y,15,15); // draw cursor
+
+  void showPalette(int sensorDistance) {
+    sensorDist = float(sensorDistance);
+    if (abs(lastValueDistSensor-sensorDist)>30 && lastValueDistSensor <= 30) {
+      sensorDist = lastValueDistSensor;
     }
+
+    sensorDist = constrain(sensorDist, 0, 30);
+    posPalette = map(sensorDist, 0, 30, 0, height);
+    lastValueDistSensor = sensorDist;
+    palette.drawPointer(posPalette);
   }
-  
-  void showIndex(Finger index, Boolean indexActive){
-    if(!indexActive){
+
+  void showIndex(Boolean indexActive) {
+    if (!indexActive) {
       realBrush.isDrawing = false;
       stroke(0, 40);
     } else {
@@ -42,27 +43,38 @@ public class PaintWork {
       stroke(0, 170);
       //ellipse(x,y,15,15); // draw cursor
     }
-    
+  }
+
+  void showIndex(Finger index, Boolean indexActive) {
+    if (!indexActive) {
+      realBrush.isDrawing = false;
+      stroke(0, 40);
+    } else {
+      realBrush.isDrawing = true;
+      stroke(0, 170);
+      //ellipse(x,y,15,15); // draw cursor
+    }
+
     index.getBone(0).draw();
     index.getBone(1).draw();
     index.getBone(2).draw();
   }
-  
-  void showTool(float x, float y, float z){
-    if(keyPressed){
-      if(key == BACKSPACE){
+
+  void showTool(float x, float y, float z) {
+    if (keyPressed) {
+      if (key == BACKSPACE) {
         canvas.beginDraw();
         canvas.background(255);
         canvas.endDraw();
         image(canvas, 0, mismatch);
         delay(500);
       }
-      
-      if(key == ENTER){
+
+      if (key == ENTER) {
         //String path = sketchPath("/Paintworks");
         //String[] filenames = listFileNames(path);
         //printArray(filenames);
-        
+
         canvas.save("Paintworks/screenshot"+id+".jpg");
         id++;
       }
@@ -71,7 +83,7 @@ public class PaintWork {
     //littleBrush.showLittleBrush(canvas, x, y);
     realBrush.show(canvas, x, y, z, palette);
   }
-  
+
   // This function returns all the files in a directory as an array of Strings  
   String[] listFileNames(String dir) {
     File file = new File(dir);
@@ -83,7 +95,4 @@ public class PaintWork {
       return null;
     }
   }
-
-  
-  
 }
