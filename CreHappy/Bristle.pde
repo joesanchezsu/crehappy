@@ -2,10 +2,10 @@ public class Bristle {
 
   Segment head;
   Palette palette;
-  float jiggle;
+  private float jiggle;
 
   Bristle(float len, Palette palette_) {
-    
+
     palette = palette_;
     Segment current = new Segment(0, 0, 10, 0);
     for (int i = 0; i < len; i++) {
@@ -16,8 +16,8 @@ public class Bristle {
     head = current;
     jiggle = 0;
   }
-  
-  void show(PGraphics canvas, float x, float y, Boolean isDrawing, color colorPalette) {
+
+  void show(PGraphics canvas, float x, float y, Boolean isDrawing, color colorPalette, int mismatch) {
     head.follow(x + jiggle, y + jiggle);
     head.update();
     head.show(colorPalette);
@@ -31,7 +31,7 @@ public class Bristle {
       if (isDrawing) canvas = next.paint(canvas, colorPalette);
       next = next.parent;
     }
-    image(canvas, 0, 0);
+    image(canvas, 0, mismatch);
     noFill();
   }
 }

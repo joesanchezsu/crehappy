@@ -40,7 +40,7 @@ public class PaintWork {
       lastValueDistSensor = sensorDist;
       palette.drawPointer(posPalette);
     } else {
-      palette.drawPointer(mouseY);
+      palette.drawPointer(mouseY); // if there is no LeapMotion
     }
   }
 
@@ -54,8 +54,8 @@ public class PaintWork {
     }
   }
 
-  void showIndex(Finger index, Finger middle, Boolean indexActive, Boolean middleActive, Boolean ringActive) {
-    if(indexActive && middleActive && ringActive){
+  void showFingers(Finger index, Finger middle, Boolean indexActive, Boolean middleActive, Boolean ringActive) {
+    if (indexActive && middleActive && ringActive) {
       stains.isDrawing = true;
       realBrush.isDrawing = false;
       brush.isDrawing = false;
@@ -67,23 +67,11 @@ public class PaintWork {
       realBrush.isDrawing = true;
       brush.isDrawing = false;
       stains.isDrawing = false;
-    } else{
+    } else {
       stains.isDrawing = false;
       brush.isDrawing = false;
       realBrush.isDrawing = false;
     }
-    /*
-    if (!indexActive) {
-     brush.isDrawing = false;
-     stroke(0, 40);
-     } else {
-     brush.isDrawing = true;
-     stroke(0, 170);
-     }
-     
-     index.getBone(0).draw();
-     index.getBone(1).draw();
-     index.getBone(2).draw();*/
   }
 
   void showMiddle(Finger middle, Boolean middleActive) {
@@ -120,7 +108,7 @@ public class PaintWork {
       littleBrush.isDrawing = true;
       stroke(0, 170);
     }
-    
+
     //pinky.getBone(0).draw();
     //pinky.getBone(1).draw();
     //pinky.getBone(2).draw();
@@ -137,20 +125,13 @@ public class PaintWork {
         delay(500);
       }
 
-      if (key == ENTER) {
-        //String path = sketchPath("/Paintworks");
-        //String[] filenames = listFileNames(path);
-        //printArray(filenames);
-
+      if (mousePressed == true) {
         canvas.save("Paintworks/screenshot"+id+".jpg");
         id++;
       }
     }
-
-
-    //brush.show(canvas, indexX, indexY, palette);
-
-
+    
+    // Draw the active Brush
     if (stains.isDrawing) {
       stains.show(canvas, middleX, middleY, palette.getHue());
     } else if (brush.isDrawing) {

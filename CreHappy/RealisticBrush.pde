@@ -93,7 +93,7 @@ class RealisticBrush
     prevIsDrawing = isDrawing;
 
     /*
-    //draw a droop?
+    // Test - drawing a drop. It doesn't work yet
      if (random(100) > 90)
      {
      droops.add(new Droop(x + cos(angle)*random(this.w), y - mismatch + sin(angle)*random(this.h)));

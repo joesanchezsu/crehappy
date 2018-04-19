@@ -28,7 +28,7 @@ public class Brush {
 
   public void show(PGraphics canvas, float x, float y, Palette palette) {
     for (Bristle b : bristles) {
-      b.show(canvas, x, y, isDrawing, palette.getHue());
+      b.show(canvas, x, y, isDrawing, palette.getHue(), mismatch);
     }
   }
 

@@ -1,25 +1,25 @@
 
-class Palette{
+class Palette {
   float position;
   private int thickness;
   int cont = 0;
 
-  Palette(){
+  Palette() {
     position = 0;
     thickness = width/30;
   }
-  
-  void showHue(){
+
+  void showHue() {
     colorMode(HSB, height, width, 100);
-    for(int i = width - thickness; i < width; i++){
-      for(int j = 0; j < height; j++){
+    for (int i = width - thickness; i < width; i++) {
+      for (int j = 0; j < height; j++) {
         stroke(j, i, 100);
         point(i, j);
       }
     }
   }
-  
-  void drawPointer(float pos){
+
+  void drawPointer(float pos) {
     position = pos;
     stroke(255);
     strokeWeight(2);
@@ -32,10 +32,9 @@ class Palette{
     vertex(width-thickness, position);
     endShape();
   }
-  
-  color getHue(){
+
+  color getHue() {
     colorMode(HSB, height, 100, 100);
     return color(position, 100, 100);
   }
-  
 }

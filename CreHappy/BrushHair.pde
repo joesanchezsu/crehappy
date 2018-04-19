@@ -30,7 +30,7 @@ class BrushHair
 
     canvas.pushMatrix();
     canvas.translate(x, y);
-    canvas.rotate(angle); // Util para el spray de graffiti
+    canvas.rotate(angle); // Useful for a future spray effect
 
     canvas.strokeWeight(thickness);
     canvas.stroke(red(col) - shading, green(col) - shading, blue(col) - shading, saturation);

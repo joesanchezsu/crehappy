@@ -8,7 +8,7 @@ class BrushStains {
   float prevPointerX = 0;
   float prevPointerY = 0;
   int mismatch;
-  
+
   BrushStains(int mismatch) {
     brush = loadImage("white.png");
     this.mismatch = mismatch;
@@ -20,17 +20,10 @@ class BrushStains {
 
     for (int i = 0; i < 2; i++) {
       float jiggleColor = random(-80, 80);
-      //canvas.colorMode(HSB);
-      //canvas.tint(40, 150 + jiggleColor, 100 + jiggleColor);
-      //color c = fondo.get(int(mouseX),int(mouseY));
       float redValue = red(col)+jiggleColor;
       float greenValue = green(col)+jiggleColor;
       float blueValue = blue(col)+jiggleColor;
       canvas.tint(redValue, greenValue, blueValue);
-      float disX = x - prevPointerX;
-      float disY = y - prevPointerY;
-      //float brushSize = 120 - 120*z;
-      float avDist = (disX + disY)/2;
 
       canvas.pushMatrix();
       float jiggle = random(-10, 10);
@@ -38,8 +31,8 @@ class BrushStains {
       float jiggleAngle = random(-10, 10);
       canvas.rotate(brushAngle+(radians(90+jiggleAngle)));
       float jiggleScale = random(-0.008, 0.008);
-      canvas.scale(0.01 + jiggleScale); //0.02
-      canvas.image(brush,0,0);
+      canvas.scale(0.01 + jiggleScale); 
+      canvas.image(brush, 0, 0);
       canvas.popMatrix();
     }
     canvas.endDraw();

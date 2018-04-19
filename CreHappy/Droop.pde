@@ -6,18 +6,18 @@ class Droop
   float xp, yp;
   public Droop(float x, float y)
   {
-      xp = x;
-      yp = y;
-      mass = 3+random(5);
-      color dcol = get((int)x, (int)y);
-      r = red(dcol);
-      g = green(dcol);
-      b = blue(dcol);
+    xp = x;
+    yp = y;
+    mass = 3+random(5);
+    color dcol = get((int)x, (int)y);
+    r = red(dcol);
+    g = green(dcol);
+    b = blue(dcol);
   }
-  
+
   public PGraphics draw(PGraphics canvas)
   {
-    if(mass <= 0) isDead = true;
+    if (mass <= 0) isDead = true;
     //canvas.beginDraw();
     canvas.ellipseMode(CENTER);
     canvas.noStroke();
