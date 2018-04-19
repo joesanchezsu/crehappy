@@ -21,7 +21,7 @@ class BrushHair
     thickness = 1+random(3);
     this.col = col;
     shading = random(15);
-    saturation = intensity*3; // (255 - random(30))/30;
+    saturation = intensity*3;
   }
 
   float show(PGraphics canvas)

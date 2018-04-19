@@ -8,11 +8,32 @@ public class ControllerLayer{
   
   // Fingers
   Finger index;
+  Finger middle;
+  Finger ring;
+  Finger pinky;
+  
   float indexX = 0;
   float indexY = 0;
   float indexZ = 0;
+  
+  float middleX = 0;
+  float middleY = 0;
+  float middleZ = 0;
+  
+  float ringX = 0;
+  float ringY = 0;
+  float ringZ = 0;
+  
+  float pinkyX = 0;
+  float pinkyY = 0;
+  float pinkyZ = 0;
+  
   Boolean indexActive = true;
-  int sensorDistance;
+  Boolean middleActive = true;
+  Boolean ringActive = true;
+  Boolean pinkyActive = true;
+  
+  int sensorDistance = 0;
   
   public ControllerLayer(){
     display = new DisplayLayer();
@@ -44,19 +65,59 @@ public class ControllerLayer{
     for(Hand hand : leap.getHands ()){
 
       index = hand.getIndexFinger();
+      middle = hand.getMiddleFinger();
+      ring = hand.getRingFinger();
+      pinky = hand.getPinkyFinger();
       
-      if(index.isValid()){
+      if(index.isValid() || middle.isValid() || ring.isValid()){
         background(bg);
-        PVector tip = index.getPositionOfJointTip();
-        indexX = tip.x;
-        indexY = tip.y;
-        indexZ = tip.z;
-        //println("x:"+indexX + "  y:"+indexY + "  z:"+indexZ);
+        
+        // Index
+        PVector tipI = index.getPositionOfJointTip();
+        indexX = tipI.x;
+        indexY = tipI.y;
+        indexZ = tipI.z;
         
         if(!index.isExtended()){
           indexActive = false;
         } else{
           indexActive = true;
+        }
+        
+        // Middle
+        PVector tipM = middle.getPositionOfJointTip();
+        middleX = tipM.x;
+        middleY = tipM.y;
+        middleZ = tipM.z;
+        
+        if(!middle.isExtended()){
+          middleActive = false;
+        } else{
+          middleActive = true;
+        }
+        
+        // Ring
+        PVector tipR = ring.getPositionOfJointTip();
+        ringX = tipR.x;
+        ringY = tipR.y;
+        ringZ = tipR.z;
+        
+        if(!ring.isExtended()){
+          ringActive = false;
+        } else{
+          ringActive = true;
+        }
+        
+        // Pinky
+        PVector tipP = pinky.getPositionOfJointTip();
+        pinkyX = tipP.x;
+        pinkyY = tipP.y;
+        pinkyZ = tipP.z;
+        
+        if(!pinky.isExtended()){
+          pinkyActive = false;
+        } else{
+          pinkyActive = true;
         }
         
         display.updatePaint(this);

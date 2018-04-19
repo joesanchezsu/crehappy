@@ -12,7 +12,6 @@ class RealisticBrush
   float py;
   PGraphics lastCanvas;
   Boolean prevIsDrawing = false;
-
   float angleChange;
 
   public RealisticBrush(float w, float h, int mismatch, color col)
@@ -27,21 +26,15 @@ class RealisticBrush
 
   void reset(float intensity, color col)
   {
-    //angleChange = 0; //atan2((pmouseY - y), (pmouseX - x)); //(0-1+random(2))/(TWO_PI*10);
-    //atan2((pmouseY - y), (pmouseX - x)); //
-
     x = 0;
     y = 0;
     px = 0;
     py = 0;
 
-    //vel = 1 + random(10);
-    //(pmouseX - mouseX ) + (pmouseY - mouseY);//
+    w = 10*intensity; 
+    h = 10*intensity;
 
-    w = 10*intensity; //10 + random(20);
-    h = 10*intensity; //5 + random(20);
-
-    this.angle = lastAngle; // 90 + atan2((pmouseY - y), (pmouseX - x)); //random(TWO_PI/4);
+    this.angle = lastAngle; 
 
     hairs.clear();
     for (int i=0; i < w; i++)
@@ -56,10 +49,9 @@ class RealisticBrush
   void show(PGraphics canvas, float x, float y, float z, Palette palette)
   {
     float intensity = map(z, 0, 100, 0, 5);
-    println(intensity);
     float cumulativeSaturation = 10;
     if (py - y != 0 || py - x != 0) {
-      this.angle = 20 + atan2((py - y), (px - x)); //random(TWO_PI/4);
+      this.angle = 20 + atan2((py - y), (px - x));
     }
 
     canvas.beginDraw();
@@ -93,9 +85,6 @@ class RealisticBrush
     {
       reset(intensity, palette.getHue());
     }
-
-    //angle += angleChange;
-    //angleChange += 0; //((0-1+(random(1)*2))*TWO_PI/4)/1000; //tiny bit of wiggle? it's now too happy to draw turds ... -_o
 
     lastAngle = angle;
     px = x;

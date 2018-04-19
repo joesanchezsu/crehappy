@@ -17,19 +17,18 @@ public class Bristle {
     jiggle = 0;
   }
   
-  void show(PGraphics canvas, float x, float y, Boolean isDrawing) {
-    //PGraphics canvas = canvas_;
+  void show(PGraphics canvas, float x, float y, Boolean isDrawing, color colorPalette) {
     head.follow(x + jiggle, y + jiggle);
     head.update();
-    head.show(palette.getHue());
-    if (isDrawing) image(head.paint(canvas, palette.getHue()), 0, 0);
+    head.show(colorPalette);
+    if (isDrawing) image(head.paint(canvas, colorPalette), 0, 0);
     Segment next = head.parent;
 
     while (next != null) {
       next.follow();
       next.update();
-      next.show(palette.getHue());
-      if (isDrawing) canvas = next.paint(canvas, palette.getHue());
+      next.show(colorPalette);
+      if (isDrawing) canvas = next.paint(canvas, colorPalette);
       next = next.parent;
     }
     image(canvas, 0, 0);
