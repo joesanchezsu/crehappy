@@ -17,7 +17,7 @@ public int inDataInt;
 
 void setup()
 {
-  //frameRate(100); //To test in a more powerful computer
+  frameRate(100); //To test in a more powerful computer
   fullScreen(P2D);
   leap = new LeapMotion(this);
   streamer = new AP_Sync(this, Serial.list()[1], 9600);
